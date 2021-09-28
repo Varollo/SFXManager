@@ -1,0 +1,14 @@
+{
+  "name": "com.varollo.sfx_manager",
+  "version": "1.0.0",
+  "displayName": "SFX Manager",
+  "description": "Unity SFX Manager is a Sound Manager for 2D sounds, like Background Music and Sound Effects, that uses a Scriptable Object based manager, meaning you don't need any instances of it on your scene.",
+  "unity": "2019.1",
+  "keywords": [],
+  "author": {
+    "name": "Gabriel Carollo (Varollo)",
+    "email": "rimoldi98@gmail.com",
+    "url": "http://varollo.github.io"
+  },
+  "type": "library"
+}
