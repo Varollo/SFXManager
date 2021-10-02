@@ -23,6 +23,12 @@ Once you call ```Play``` on that instance of the Manager, if not already, a new 
 
 The created object is persistent between scenes, and will only be recreated if it ever get's destroyed.
 
+### The C# class Generator
+You can also (if you choose) generate a C# class containing ```const string values``` for each song, inside a ```struct``` for each track.
+Just check the ```Generate Cs Class``` field in the inspector.
+
+But WARNING: The generated class must be in the same folder as the scriptable object instance!
+
 ## Disclaimer
 I am not supporting this that much, it's just a thing for me to use in multiple projects, but none the less, you can use it if you don't mind the lack of support from my side.
 
