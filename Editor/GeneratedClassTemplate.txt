@@ -1,0 +1,4 @@
+public static class <GENERATED_CLASS_TEMPLATE>
+{
+    <CONTENT>
+}

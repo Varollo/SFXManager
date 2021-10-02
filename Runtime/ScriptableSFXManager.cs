@@ -9,18 +9,24 @@ namespace Varollo.SFXManager
     [CreateAssetMenu(fileName = "SFX Manager", menuName = "Varollo/SFX Manager/New SFX Manager", order = 0)]
     public class ScriptableSFXManager : ScriptableObject
     {
-        [SerializeField] private SFXTrack[] tracks;
+        [SerializeField] private SFXTrack[] _tracks;
         [Header("Debug")]
-        [SerializeField] private bool enableLogs;
+        [SerializeField] private bool _enableLogs;
+        [Space]
+        [Tooltip("Generates a C# class with an struct for each Track and a const for each Sound.\n[MUST BE IN THE SAME FOLDER AS THE SCRIPTABLE OBJECT]")] [SerializeField] private bool _generateCsClass;
+
+        [SerializeField] [HideInInspector] private bool _autoSave;
 
         private Dictionary<string, Dictionary<string, Sound>> SoundDictionary { get; set; }
         private Dictionary<string, SFXTrack> TrackDictionary { get; set; }
+
+        public List<SFXTrack> GetTracks() => new List<SFXTrack>(_tracks);
 
         private void CreateSoundDictionary()
         {
             SoundDictionary = new Dictionary<string, Dictionary<string, Sound>>();
 
-            foreach (var track in tracks)
+            foreach (var track in _tracks)
             {
                 Dictionary<string, Sound> trackDictionary = new Dictionary<string, Sound>();
                 foreach (var sound in track.Sounds)
@@ -36,7 +42,7 @@ namespace Varollo.SFXManager
         {
             TrackDictionary = new Dictionary<string, SFXTrack>();
 
-            foreach (var track in tracks)
+            foreach (var track in _tracks)
             {
                 TrackDictionary.Add(track.Name, track);
             }
@@ -106,7 +112,7 @@ namespace Varollo.SFXManager
             {
                 CreateSoundDictionary();
 
-                if (enableLogs)
+                if (_enableLogs)
                 {
                     Debug.Log($"[SFX] {name}'s sound dictionary generated.");
                 }
@@ -119,7 +125,7 @@ namespace Varollo.SFXManager
             {
                 CreateTrackDictionary();
 
-                if (enableLogs)
+                if (_enableLogs)
                 {
                     Debug.Log($"[SFX] {name}'s track dictionary generated.");
                 }
@@ -183,5 +189,22 @@ namespace Varollo.SFXManager
             AddTrack(track);
             AddSound(sound, track.Name);
         }
+
+        // Used to generate the C# class
+        #region C# Class Generation
+#if UNITY_EDITOR
+
+        /// <summary>
+        /// Called only on the Editor when a propperty changes.
+        /// </summary>
+        public event System.Action OnInspectorChange;
+
+        private void OnValidate()
+        {
+            OnInspectorChange?.Invoke();
+        }
+
+#endif
+        #endregion
     }
 }
