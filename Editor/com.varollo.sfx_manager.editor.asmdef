@@ -1,8 +1,12 @@
 {
-    "name": "com.varollo.sfx_manager.runtime",
+    "name": "com.varollo.sfx_manager.editor",
     "rootNamespace": "",
-    "references": [],
-    "includePlatforms": [],
+    "references": [
+        "GUID:ddaf5d5444bc6504f8870d9746f33a9c"
+    ],
+    "includePlatforms": [
+        "Editor"
+    ],
     "excludePlatforms": [],
     "allowUnsafeCode": false,
     "overrideReferences": false,
