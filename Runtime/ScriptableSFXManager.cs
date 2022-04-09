@@ -1,6 +1,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+#if UNITY_EDITOR
+using UnityEngine.Events;
+#endif
+
 namespace Varollo.SFXManager
 {
     /// <summary>
@@ -195,15 +199,14 @@ namespace Varollo.SFXManager
 #if UNITY_EDITOR
 
         /// <summary>
-        /// Called only on the Editor when a propperty changes.
+        /// Only to be used by the custom editor
         /// </summary>
-        public event System.Action OnInspectorChange;
+        private UnityEvent _onInspectorChange;
 
-        private void OnValidate()
+        protected virtual void OnValidate()
         {
-            OnInspectorChange?.Invoke();
+            _onInspectorChange?.Invoke();
         }
-
 #endif
         #endregion
     }

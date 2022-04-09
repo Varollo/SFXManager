@@ -57,7 +57,8 @@ namespace Varollo.SFXManager.Editor
 
             _subscribedToEvent = true;
 
-            ((ScriptableSFXManager)target).OnInspectorChange += GenerateCsClass;
+            GetInspectorChangeEvent().AddListener(GenerateCsClass);
+            GenerateCsClass();
         }
 
         private void DisableAutoSave()
@@ -66,8 +67,10 @@ namespace Varollo.SFXManager.Editor
 
             _subscribedToEvent = false;
 
-            ((ScriptableSFXManager)target).OnInspectorChange -= GenerateCsClass;
+            GetInspectorChangeEvent().RemoveListener(GenerateCsClass);
         }
+
+        private UnityEvent GetInspectorChangeEvent() => target.GetType().GetField("_onInspectorChange", BindingFlags.NonPublic | BindingFlags.Instance).GetValue(target) as UnityEvent;
 
         private string GetFullDefaultPath() => GetDefaultPath() + GetFileName();
 
